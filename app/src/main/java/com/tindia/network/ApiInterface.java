@@ -2,7 +2,9 @@ package com.tindia.network;
 
 
 import com.tindia.model.AppBundle;
+import com.tindia.model.DetailResponse;
 import com.tindia.model.Movie;
+import com.tindia.model.Destination;
 
 import java.util.List;
 
@@ -17,4 +19,10 @@ public interface ApiInterface {
 
     @GET("bundle")
     Call<AppBundle> getBundle();
+
+    @GET("destination")
+    Call<List<Destination>> getDestination();
+
+    @GET("getdestination")
+    Call<DetailResponse> getDetailResponse();
 }

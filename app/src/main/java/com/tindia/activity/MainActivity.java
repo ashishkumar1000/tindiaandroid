@@ -7,11 +7,15 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.tindia.R;
+import com.tindia.adapter.DestinationsAdapter;
 import com.tindia.adapter.MoviesAdapter;
+import com.tindia.model.Destination;
 import com.tindia.model.Movie;
 import com.tindia.network.ApiInterface;
 import com.tindia.network.ServiceGenerator;
@@ -26,10 +30,12 @@ import retrofit2.Response;
 public class MainActivity extends AppCompatActivity {
 
     private List<Movie> movies = new ArrayList<>();
+    private List<Destination> destinations = new ArrayList<>();
     private final String TAG = MainActivity.class.getSimpleName();
     private ProgressBar loader;
     private RecyclerView recyclerView;
     private MoviesAdapter moviesAdapter;
+    private DestinationsAdapter destinationsAdapter;
     private TextView errorView;
 
     @Override
@@ -42,11 +48,20 @@ public class MainActivity extends AppCompatActivity {
 
         recyclerView = findViewById(R.id.recyclerView);
 
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(MainActivity.this);
-        recyclerView.setLayoutManager(linearLayoutManager);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
-        moviesAdapter = new MoviesAdapter(MainActivity.this, movies);
-        recyclerView.setAdapter(moviesAdapter);
+        destinationsAdapter = new DestinationsAdapter(destinations);
+        recyclerView.setAdapter(destinationsAdapter);
+        GridLayoutManager layoutManager = new GridLayoutManager(this,2);
+        recyclerView.setLayoutManager(layoutManager);
+//        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(MainActivity.this);
+//        recyclerView.setLayoutManager(linearLayoutManager);
+
+//        moviesAdapter = new MoviesAdapter(MainActivity.this, movies);
+//        recyclerView.setAdapter(moviesAdapter);
+
+
         getMovies();
     }
 
@@ -54,16 +69,17 @@ public class MainActivity extends AppCompatActivity {
     private void getMovies() {
         ApiInterface apiInterface = ServiceGenerator.createService(ApiInterface.class);
         Call<List<Movie>> call = apiInterface.getMovies();
-
-
-        call.enqueue(new Callback<List<Movie>>() {
+        Call<List<Destination>> destination = apiInterface.getDestination();
+        destination.enqueue(new Callback<List<Destination>>() {
             @Override
-            public void onResponse(Call<List<Movie>> call, Response<List<Movie>> response) {
+            public void onResponse(Call<List<Destination>> call, Response<List<Destination>> response) {
+                //Log.d(TAG,);
                 if (response.isSuccessful()) {
-                    for (Movie movie : response.body()) {
-                        movies.add(movie);
+                    for (Destination destination : response.body()) {
+                        destinations.add(destination);
                     }
-                    moviesAdapter.notifyDataSetChanged();
+                    //destinationsAdapter.notifyDataSetChanged();
+                    destinationsAdapter.notifyDataSetChanged();
                 } else {
                     Log.e(TAG, response.message());
                 }
@@ -72,11 +88,34 @@ public class MainActivity extends AppCompatActivity {
             }
 
             @Override
-            public void onFailure(Call<List<Movie>> call, Throwable t) {
+            public void onFailure(Call<List<Destination>> call, Throwable t) {
                 loader.setVisibility(View.GONE);
                 errorView.setVisibility(View.VISIBLE);
                 Log.e(TAG, t.getMessage());
             }
         });
+
+//        call.enqueue(new Callback<List<Movie>>() {
+//            @Override
+//            public void onResponse(Call<List<Movie>> call, Response<List<Movie>> response) {
+//                if (response.isSuccessful()) {
+//                    for (Movie movie : response.body()) {
+//                        movies.add(movie);
+//                    }
+//                    moviesAdapter.notifyDataSetChanged();
+//                } else {
+//                    Log.e(TAG, response.message());
+//                }
+//                loader.setVisibility(View.GONE);
+//                errorView.setVisibility(View.GONE);
+//            }
+//
+//            @Override
+//            public void onFailure(Call<List<Movie>> call, Throwable t) {
+//                loader.setVisibility(View.GONE);
+//                errorView.setVisibility(View.VISIBLE);
+//                Log.e(TAG, t.getMessage());
+//            }
+//        });
     }
 }

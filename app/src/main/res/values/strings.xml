@@ -1,3 +1,11 @@
 <resources>
-    <string name="app_name">tindia</string>
+    <string name="app_name">Travel App</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="detail_tab">Details</string>
+    <string name="hotel_tab">Hotels</string>
+    <string name="transport_tab">Journey</string>
+    <string name="food_tab">Foods</string>
+
 </resources>
