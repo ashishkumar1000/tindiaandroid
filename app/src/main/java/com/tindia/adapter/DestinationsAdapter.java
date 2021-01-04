@@ -1,7 +1,6 @@
 package com.tindia.adapter;
 
-import android.content.Intent;
-import android.graphics.drawable.Drawable;
+import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,12 +9,11 @@ import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
-import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
 import com.tindia.R;
-import com.tindia.activity.DetailActivity;
+import com.tindia.activity.MainActivity;
 import com.tindia.model.Destination;
 
 import java.util.List;
@@ -23,6 +21,7 @@ import java.util.List;
 public class DestinationsAdapter extends RecyclerView.Adapter<DestinationsAdapter.ViewHolder> {
 
     private List<Destination> destinations;
+    private Context context;
 
     public static class ViewHolder extends RecyclerView.ViewHolder{
         private CardView cardView;
@@ -33,8 +32,9 @@ public class DestinationsAdapter extends RecyclerView.Adapter<DestinationsAdapte
         }
     }
 
-    public DestinationsAdapter(List<Destination> destinations){
+    public DestinationsAdapter(List<Destination> destinations, Context context){
         this.destinations = destinations;
+        this.context = context;
     }
 
     @NonNull
@@ -48,20 +48,21 @@ public class DestinationsAdapter extends RecyclerView.Adapter<DestinationsAdapte
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Destination destination = destinations.get(position);
+        final Destination destination = destinations.get(position);
         final CardView cardView = holder.cardView;
         ImageView imageView = cardView.findViewById(R.id.dest_image);
-        String imageUrl = destination.getImage_url();
+        String imageUrl = destination.getImageUrl();
         Picasso.get().load(imageUrl).into(imageView);
 //        Drawable drawable = ContextCompat.getDrawable(cardView.getContext(),Integer.valueOf(destination.getImage_url()));
         TextView textView = cardView.findViewById(R.id.dest_name);
-        textView.setText(destination.getDest_name());
+        textView.setText(destination.getDestName());
 
         cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(cardView.getContext(), DetailActivity.class);
-                cardView.getContext().startActivity(intent);
+                if (context instanceof MainActivity){
+                    ((MainActivity) context).handleItemClick(destination);
+                }
             }
         });
     }

@@ -1,7 +1,6 @@
 package com.tindia.adapter;
 
 import android.content.Context;
-import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -14,27 +13,28 @@ import com.tindia.fragment.DetailFragment;
 import com.tindia.fragment.FoodFragment;
 import com.tindia.fragment.HotelFragment;
 import com.tindia.fragment.TransportFragment;
+import com.tindia.model.Destination;
 import com.tindia.model.DetailResponse;
 
 public class TabsPagerAdapter extends FragmentPagerAdapter {
 
     Context context;
     public DetailResponse detailResponse;
-    public TabsPagerAdapter(Context context,FragmentManager fm){
-        super(fm,BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
-        this.context = context;
-    }
+    public Destination destination;
 
-    public void setDetailResponse(DetailResponse detailResponse) {
+    public TabsPagerAdapter(Context context, FragmentManager fm, DetailResponse detailResponse, Destination destination) {
+        super(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
+        this.context = context;
         this.detailResponse = detailResponse;
+        this.destination = destination;
     }
 
     @NonNull
     @Override
     public Fragment getItem(int position) {
-        switch (position){
+        switch (position) {
             case 0:
-                return DetailFragment.newInstance(detailResponse.getPlace());
+                return DetailFragment.newInstance(detailResponse.getPlace(), destination);
             case 1:
                 return new HotelFragment();
             case 2:
@@ -53,7 +53,7 @@ public class TabsPagerAdapter extends FragmentPagerAdapter {
     @Nullable
     @Override
     public CharSequence getPageTitle(int position) {
-        switch (position){
+        switch (position) {
             case 0:
                 return context.getResources().getText(R.string.detail_tab);
             case 1:

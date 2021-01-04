@@ -2,14 +2,16 @@ package com.tindia.network;
 
 
 import com.tindia.model.AppBundle;
+import com.tindia.model.Destination;
 import com.tindia.model.DetailResponse;
 import com.tindia.model.Movie;
-import com.tindia.model.Destination;
 
 import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
+import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 
 public interface ApiInterface {
@@ -24,5 +26,5 @@ public interface ApiInterface {
     Call<List<Destination>> getDestination();
 
     @GET("getdestination")
-    Call<DetailResponse> getDetailResponse();
+    Call<DetailResponse> getDetailResponse(@Query("cityId") int cityId);
 }

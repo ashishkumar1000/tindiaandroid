@@ -1,5 +1,6 @@
 package com.tindia.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -19,6 +20,7 @@ import com.tindia.model.Destination;
 import com.tindia.model.Movie;
 import com.tindia.network.ApiInterface;
 import com.tindia.network.ServiceGenerator;
+import com.tindia.utils.AppConstants;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,7 +53,7 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        destinationsAdapter = new DestinationsAdapter(destinations);
+        destinationsAdapter = new DestinationsAdapter(destinations, this);
         recyclerView.setAdapter(destinationsAdapter);
         GridLayoutManager layoutManager = new GridLayoutManager(this,2);
         recyclerView.setLayoutManager(layoutManager);
@@ -65,6 +67,12 @@ public class MainActivity extends AppCompatActivity {
         getMovies();
     }
 
+
+    public void handleItemClick(Destination destination){
+        Intent intent = new Intent(this, DetailActivity.class);
+        intent.putExtra(AppConstants.DEST_RESPONSE, destination);
+        startActivity(intent);
+    }
 
     private void getMovies() {
         ApiInterface apiInterface = ServiceGenerator.createService(ApiInterface.class);

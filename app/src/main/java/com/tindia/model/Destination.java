@@ -1,14 +1,21 @@
 package com.tindia.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.SerializedName;
 
-public class Destination {
+public class Destination implements Parcelable {
     @SerializedName("id")
     private int id;
     @SerializedName("dest_name")
-    private String dest_name;
+    private String destName;
     @SerializedName("image_url")
-    private String image_url;
+    private String imageUrl;
+
+    @SerializedName("dest_desc")
+    private String destDesc;
+
 
     public int getId() {
         return id;
@@ -18,19 +25,62 @@ public class Destination {
         this.id = id;
     }
 
-    public String getDest_name() {
-        return dest_name;
+    public String getDestName() {
+        return destName;
     }
 
-    public void setDest_name(String dest_name) {
-        this.dest_name = dest_name;
+    public void setDestName(String destName) {
+        this.destName = destName;
     }
 
-    public String getImage_url() {
-        return image_url;
+    public String getImageUrl() {
+        return imageUrl;
     }
 
-    public void setImage_url(String image_url) {
-        this.image_url = image_url;
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
     }
+
+    public String getDestDesc() {
+        return destDesc;
+    }
+
+    public void setDestDesc(String destDesc) {
+        this.destDesc = destDesc;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(this.id);
+        dest.writeString(this.destName);
+        dest.writeString(this.imageUrl);
+        dest.writeString(this.destDesc);
+    }
+
+    public Destination() {
+    }
+
+    protected Destination(Parcel in) {
+        this.id = in.readInt();
+        this.destName = in.readString();
+        this.imageUrl = in.readString();
+        this.destDesc = in.readString();
+    }
+
+    public static final Parcelable.Creator<Destination> CREATOR = new Parcelable.Creator<Destination>() {
+        @Override
+        public Destination createFromParcel(Parcel source) {
+            return new Destination(source);
+        }
+
+        @Override
+        public Destination[] newArray(int size) {
+            return new Destination[size];
+        }
+    };
 }

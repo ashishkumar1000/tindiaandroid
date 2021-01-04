@@ -1,60 +1,73 @@
 package com.tindia.adapter;
 
+import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
 import com.tindia.R;
-import com.tindia.fragment.DetailFragment;
+import com.tindia.activity.PopupActivity;
 import com.tindia.model.DetailPlace;
-import com.tindia.model.DetailResponse;
 
 import java.util.List;
 
 public class DetailDescAdapter extends RecyclerView.Adapter<DetailDescAdapter.ViewHolder> {
 
     private List<DetailPlace> detailPlaces;
+    private Context context;
 
-    public static class ViewHolder extends RecyclerView.ViewHolder{
-        private CardView cardView;
+    public static class ViewHolder extends RecyclerView.ViewHolder {
+        private View view;
 
-        public ViewHolder(CardView v) {
-            super(v);
-            cardView = v;
+        public ViewHolder(View view) {
+            super(view);
+            this.view = view;
         }
     }
 
-    public DetailDescAdapter(List<DetailPlace> detailPlaces){
+    public DetailDescAdapter(List<DetailPlace> detailPlaces, Context context) {
         this.detailPlaces = detailPlaces;
+        this.context = context;
     }
 
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        CardView cv = (CardView) LayoutInflater.from(parent.getContext())
-                .inflate(R.layout.card_detailplace,parent,false);
-
+        View cv = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.card_detailplace, parent, false);
         return new ViewHolder(cv);
     }
+
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         DetailPlace detailPlace = detailPlaces.get(position);
-        final CardView cardView = holder.cardView;
+        final View cardView = holder.view;
         ImageView imageView = cardView.findViewById(R.id.imageView_place);
         String imageUrl = detailPlace.getPlace_image();
         Picasso.get().load(imageUrl).into(imageView);
-        TextView placeName = cardView.findViewById(R.id.textView_city);
+        TextView placeName = cardView.findViewById(R.id.tv_place);
         placeName.setText(detailPlace.getPlace_name());
-        TextView placeDesc = cardView.findViewById(R.id.textView_cityDesc);
+        TextView placeDesc = cardView.findViewById(R.id.tv_place_desc);
         placeDesc.setText(detailPlace.getPlace_desc());
+
+        cardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(context, PopupActivity.class);
+                i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                context.startActivity(i);
+
+            }
+        });
     }
 
     @Override

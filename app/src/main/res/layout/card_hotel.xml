@@ -16,7 +16,6 @@
             <ImageView
                 android:id="@+id/imageView_hotel"
                 android:layout_width="match_parent"
-                android:src="@drawable/jaipur"
                 android:layout_height="200dp"
                 android:scaleType="centerCrop"/>
 
