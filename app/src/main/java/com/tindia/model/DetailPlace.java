@@ -1,9 +1,12 @@
 package com.tindia.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.google.gson.annotations.SerializedName;
 
 
-public class DetailPlace {
+public class DetailPlace implements Parcelable {
     @SerializedName("id")
     private int id;
     @SerializedName("place_image")
@@ -54,4 +57,42 @@ public class DetailPlace {
     public void setBelongs_to(int belongs_to) {
         this.belongs_to = belongs_to;
     }
+
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(this.id);
+        dest.writeString(this.place_image);
+        dest.writeString(this.place_name);
+        dest.writeString(this.place_desc);
+        dest.writeInt(this.belongs_to);
+    }
+
+    public DetailPlace() {
+    }
+
+    protected DetailPlace(Parcel in) {
+        this.id = in.readInt();
+        this.place_image = in.readString();
+        this.place_name = in.readString();
+        this.place_desc = in.readString();
+        this.belongs_to = in.readInt();
+    }
+
+    public static final Parcelable.Creator<DetailPlace> CREATOR = new Parcelable.Creator<DetailPlace>() {
+        @Override
+        public DetailPlace createFromParcel(Parcel source) {
+            return new DetailPlace(source);
+        }
+
+        @Override
+        public DetailPlace[] newArray(int size) {
+            return new DetailPlace[size];
+        }
+    };
 }

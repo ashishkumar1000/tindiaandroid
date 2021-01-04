@@ -1,6 +1,7 @@
 package com.tindia.adapter;
 
 import android.content.Context;
+import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -33,7 +34,7 @@ public class TabsPagerAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         switch (position){
             case 0:
-                return new DetailFragment(detailResponse.getPlace());
+                return DetailFragment.newInstance(detailResponse.getPlace());
             case 1:
                 return new HotelFragment();
             case 2:
