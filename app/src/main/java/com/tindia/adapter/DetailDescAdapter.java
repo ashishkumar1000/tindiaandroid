@@ -15,6 +15,7 @@ import com.squareup.picasso.Picasso;
 import com.tindia.R;
 import com.tindia.activity.PopupActivity;
 import com.tindia.model.DetailPlace;
+import com.tindia.utils.AppConstants;
 
 import java.util.List;
 
@@ -49,7 +50,7 @@ public class DetailDescAdapter extends RecyclerView.Adapter<DetailDescAdapter.Vi
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        DetailPlace detailPlace = detailPlaces.get(position);
+        final DetailPlace detailPlace = detailPlaces.get(position);
         final View cardView = holder.view;
         ImageView imageView = cardView.findViewById(R.id.imageView_place);
         String imageUrl = detailPlace.getPlace_image();
@@ -62,9 +63,10 @@ public class DetailDescAdapter extends RecyclerView.Adapter<DetailDescAdapter.Vi
         cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent i = new Intent(context, PopupActivity.class);
-                i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                context.startActivity(i);
+                Intent intent = new Intent(context, PopupActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.putExtra(AppConstants.POP_UP_DESC, detailPlace.getPlace_desc());
+                context.startActivity(intent);
 
             }
         });

@@ -12,14 +12,23 @@
         android:orientation="vertical"
         tools:context=".activity.DetailActivity">
 
+        <TextView
+            android:id="@+id/tv_back"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="#1F659A"
+            android:drawableLeft="@drawable/ic_arrow_back"
+            android:drawablePadding="5dp"
+            android:gravity="center_vertical"
+            android:text="DESCRIPTION"
+            android:textColor="#FFFFFF"
+            android:textSize="18sp" />
+
         <com.google.android.material.appbar.AppBarLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
-            <include
-                android:id="@+id/toolbar_detail"
-                layout="@layout/toolbar_main" />
 
             <com.google.android.material.tabs.TabLayout
                 android:id="@+id/tabLayout"

@@ -76,9 +76,6 @@ public class DetailFragment extends Fragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        TextView cityName = view.findViewById(R.id.tv_city_name);
-
-        cityName.setText(destination.getDestName());
 
         recyclerView = view.findViewById(R.id.recyclerView_detail);
         DetailDescAdapter detailDescAdapter = new DetailDescAdapter(detailPlaceList, getActivity().getApplicationContext());

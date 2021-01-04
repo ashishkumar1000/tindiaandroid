@@ -1,13 +1,12 @@
 package com.tindia.activity;
 
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabLayout;
@@ -23,11 +22,12 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class DetailActivity extends AppCompatActivity {
+public class DetailActivity extends AppCompatActivity implements View.OnClickListener{
     private final String TAG = DetailActivity.class.getSimpleName();
     TabsPagerAdapter pagerAdapter;
     ProgressBar progressBarDetail;
     Destination destination;
+    TextView description;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,10 +38,11 @@ public class DetailActivity extends AppCompatActivity {
         destination = getIntent().getExtras().getParcelable(AppConstants.DEST_RESPONSE);
         int cityId = destination.getId();
 
-        Toolbar toolbar = findViewById(R.id.toolbar_detail);
         progressBarDetail = findViewById(R.id.progressBarDetail);
-        setSupportActionBar(toolbar);
         getDetailResponse(cityId);
+        description = findViewById(R.id.tv_back);
+        description.setOnClickListener(this);
+        description.setText(destination.getDestName());
     }
 
     private void handleResponse(DetailResponse detailResponse) {
@@ -73,5 +74,10 @@ public class DetailActivity extends AppCompatActivity {
                 Log.e(TAG, t.getMessage());
             }
         });
+    }
+
+    @Override
+    public void onClick(View v) {
+        this.onBackPressed();
     }
 }

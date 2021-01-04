@@ -3,23 +3,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-
-    <TextView
-        android:id="@+id/tv_city_name"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:background="#FDD3D3"
-        android:gravity="center"
-        android:padding="5dp"
-        android:text="XXXX"
-        android:textColor="#000000"
-        android:textSize="14sp" />
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView_detail"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@id/tv_city_name" />
+        android:layout_height="match_parent"/>
 
 </RelativeLayout>
