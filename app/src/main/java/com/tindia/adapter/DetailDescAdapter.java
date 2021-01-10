@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
@@ -18,6 +19,7 @@ import com.tindia.model.DetailPlace;
 import com.tindia.utils.AppConstants;
 
 import java.util.List;
+import java.util.Objects;
 
 public class DetailDescAdapter extends RecyclerView.Adapter<DetailDescAdapter.ViewHolder> {
 
@@ -54,7 +56,9 @@ public class DetailDescAdapter extends RecyclerView.Adapter<DetailDescAdapter.Vi
         final View cardView = holder.view;
         ImageView imageView = cardView.findViewById(R.id.imageView_place);
         String imageUrl = detailPlace.getPlace_image();
-        Picasso.get().load(imageUrl).into(imageView);
+        Picasso.get().load(imageUrl)
+                .placeholder(Objects.requireNonNull(ContextCompat.getDrawable(context, R.drawable.city_image)))
+                .into(imageView);
         TextView placeName = cardView.findViewById(R.id.tv_place);
         placeName.setText(detailPlace.getPlace_name());
         TextView placeDesc = cardView.findViewById(R.id.tv_place_desc);
