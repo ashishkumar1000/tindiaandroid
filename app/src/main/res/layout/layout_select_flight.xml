@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="16dp"
+    android:background="@drawable/card_boundry_black"
+    android:padding="10dp">
+
+    <RelativeLayout
+        android:id="@+id/rl_top_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical">
+
+        <RelativeLayout
+            android:id="@+id/rl_src"
+            android:layout_width="150dp"
+            android:layout_height="60dp"
+            android:background="@drawable/card_boundry_black"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:id="@+id/tv_from"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="FROM CITY:"
+                android:textSize="12sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_from"
+                android:fontFamily="sans-serif-medium"
+                android:text="DELHI"
+                android:textSize="20sp" />
+        </RelativeLayout>
+
+
+        <ImageView
+            android:id="@+id/iv_target"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_centerVertical="true"
+            android:layout_toLeftOf="@+id/rl_to"
+            android:layout_toRightOf="@id/rl_src"
+            android:src="@drawable/baseline_swap_horiz_black_18" />
+
+        <RelativeLayout
+            android:id="@+id/rl_to"
+            android:layout_width="150dp"
+            android:layout_height="60dp"
+            android:layout_alignParentEnd="true"
+            android:background="@drawable/card_boundry_black"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:id="@+id/tv_to"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="TO CITY:"
+                android:textSize="12sp" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tv_to"
+                android:fontFamily="sans-serif-medium"
+                android:text="KOCHI"
+                android:textSize="20sp" />
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+
+    <CalendarView
+        android:id="@+id/cv_calender"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/rl_top_view"
+        android:layout_marginTop="20dp" />
+
+    <Button
+        android:id="@+id/btn_flight_search"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_below="@+id/cv_calender"
+        android:layout_marginTop="10dp"
+        android:background="#1D669F"
+        android:fontFamily="sans-serif-medium"
+        android:text="SEARCH"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp" />
+</RelativeLayout>
