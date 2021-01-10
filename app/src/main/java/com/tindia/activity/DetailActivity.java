@@ -1,17 +1,21 @@
 package com.tindia.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
 import com.google.android.material.tabs.TabLayout;
 import com.tindia.R;
 import com.tindia.adapter.TabsPagerAdapter;
+import com.tindia.fragment.TransportFragment;
 import com.tindia.model.Destination;
 import com.tindia.model.DetailResponse;
 import com.tindia.network.ApiInterface;
@@ -22,7 +26,8 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class DetailActivity extends AppCompatActivity implements View.OnClickListener{
+public class DetailActivity extends AppCompatActivity implements View.OnClickListener, TransportFragment.OnTransportFragmentInteractionListener {
+    public static final int AUTO_SUGGEST_ACTIVITY = 1;
     private final String TAG = DetailActivity.class.getSimpleName();
     TabsPagerAdapter pagerAdapter;
     ProgressBar progressBarDetail;
@@ -79,5 +84,25 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
     @Override
     public void onClick(View v) {
         this.onBackPressed();
+    }
+
+    @Override
+    public void openSearchButtonClick() {
+
+    }
+
+    @Override
+    public void openAutoSuggestActivity() {
+        Intent i = new Intent(this, AutoSuggestActivity.class);
+        startActivityForResult(i, AUTO_SUGGEST_ACTIVITY);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == AUTO_SUGGEST_ACTIVITY) {
+            String message = data.getStringExtra("MESSAGE");
+            Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+        }
     }
 }

@@ -1,25 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.wear.widget.BoxInsetLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/dark_grey"
-    android:padding="@dimen/box_inset_layout_padding"
-    tools:context=".activity.AutoSuggestActivity"
-    tools:deviceIds="wear">
+    android:orientation="vertical"
+    tools:context=".activity.PopupActivity">
 
-    <FrameLayout
+    <TextView
+        android:id="@+id/tv_back"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:padding="@dimen/inner_frame_layout_padding"
-        app:boxedEdges="all">
+        android:layout_height="60dp"
+        android:background="#1F659A"
+        android:drawableLeft="@drawable/ic_arrow_back"
+        android:drawablePadding="5dp"
+        android:gravity="center_vertical"
+        android:text="Select City"
+        android:textColor="#FFFFFF"
+        android:textSize="18sp" />
 
-        <TextView
-            android:id="@+id/text"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/hello_world" />
 
-    </FrameLayout>
-</androidx.wear.widget.BoxInsetLayout>
+    <SearchView
+        android:id="@+id/searchView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_margin="16dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/card_boundry_black"
+        android:iconifiedByDefault="false"
+        android:queryHint="Search Here" />
+
+
+    <ListView
+        android:id="@+id/city_list"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="16dp" />
+
+</LinearLayout>
