@@ -36,11 +36,11 @@ public class TabsPagerAdapter extends FragmentPagerAdapter {
             case 0:
                 return DetailFragment.newInstance(detailResponse.getPlace(), destination);
             case 1:
-                return new HotelFragment();
+                return HotelFragment.newInstance(detailResponse.getHotel(), destination);
             case 2:
                 return new TransportFragment();
             case 3:
-                return new FoodFragment();
+                return FoodFragment.newInstance(detailResponse.getFood(),destination);
         }
         return null;
     }
