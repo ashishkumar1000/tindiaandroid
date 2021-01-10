@@ -87,8 +87,8 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     @Override
-    public void openSearchButtonClick() {
-
+    public void openSearchButtonClick(CharSequence srcCity, CharSequence destCity, long date, int selectedItemPosition) {
+        Log.d(TAG, "openSearchButtonClick: " + srcCity + " " + destCity + " " + date + " " + selectedItemPosition);
     }
 
     @Override
@@ -104,7 +104,7 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
         if (requestCode == AUTO_SUGGEST_ACTIVITY) {
             String cityName = data.getStringExtra("MESSAGE");
             String type = data.getStringExtra("TYPE");
-            Toast.makeText(this, cityName +  type, Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, cityName + type, Toast.LENGTH_SHORT).show();
 
             if (TransportFragment.SearchType.DEST.name().equalsIgnoreCase(type)) {
                 pagerAdapter.setDestCity(cityName);

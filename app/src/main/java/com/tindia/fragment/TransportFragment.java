@@ -6,7 +6,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.CalendarView;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -35,6 +37,8 @@ public class TransportFragment extends Fragment implements View.OnClickListener 
     private TextView srcCityView;
     private TextView destCityView;
     private CalendarView cv_calender;
+    private Button btn_flight_search;
+    private Spinner spinner;
 
     public TransportFragment() {
         // Required empty public constructor
@@ -87,6 +91,10 @@ public class TransportFragment extends Fragment implements View.OnClickListener 
         srcCityView = view.findViewById(R.id.tv_src_city);
         destCityView = view.findViewById(R.id.tv_dest_city);
         cv_calender = view.findViewById(R.id.cv_calender);
+        btn_flight_search = view.findViewById(R.id.btn_flight_search);
+        spinner = view.findViewById(R.id.spinner1);
+
+        btn_flight_search.setOnClickListener(this);
 
         srcCityView.setText(srcCity.toUpperCase());
         destCityView.setText(destCity.toUpperCase());
@@ -101,6 +109,8 @@ public class TransportFragment extends Fragment implements View.OnClickListener 
             case R.id.rl_src:
                 context.openAutoSuggestActivity(SearchType.SRC);
                 break;
+            case R.id.btn_flight_search:
+                context.openSearchButtonClick(srcCityView.getText(), destCityView.getText(), cv_calender.getDate(), spinner.getSelectedItemPosition());
             default:
         }
 
@@ -110,7 +120,7 @@ public class TransportFragment extends Fragment implements View.OnClickListener 
     public interface OnTransportFragmentInteractionListener {
         public void openAutoSuggestActivity(SearchType type);
 
-        public void openSearchButtonClick();
+        public void openSearchButtonClick(CharSequence text, CharSequence destCityViewText, long date, int selectedItemPosition);
     }
 
     public enum SearchType {
