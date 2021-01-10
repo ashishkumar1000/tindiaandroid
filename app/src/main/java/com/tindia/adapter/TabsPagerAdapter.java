@@ -7,6 +7,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.fragment.app.FragmentStatePagerAdapter;
 
 import com.tindia.R;
 import com.tindia.fragment.DetailFragment;
@@ -16,11 +17,14 @@ import com.tindia.fragment.TransportFragment;
 import com.tindia.model.Destination;
 import com.tindia.model.DetailResponse;
 
-public class TabsPagerAdapter extends FragmentPagerAdapter {
+public class TabsPagerAdapter extends FragmentStatePagerAdapter {
 
     Context context;
     public DetailResponse detailResponse;
     public Destination destination;
+    private String srcCity = " ";
+    private String destCity = " ";
+    private String date = "";
 
     public TabsPagerAdapter(Context context, FragmentManager fm, DetailResponse detailResponse, Destination destination) {
         super(fm, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
@@ -38,11 +42,28 @@ public class TabsPagerAdapter extends FragmentPagerAdapter {
             case 1:
                 return HotelFragment.newInstance(detailResponse.getHotel(), destination);
             case 2:
-                return new TransportFragment();
+                return TransportFragment.newInstance(srcCity, destCity, date);
             case 3:
-                return FoodFragment.newInstance(detailResponse.getFood(),destination);
+                return FoodFragment.newInstance(detailResponse.getFood(), destination);
         }
         return null;
+    }
+
+    @Override
+    public int getItemPosition(@NonNull Object object) {
+        return POSITION_NONE;
+    }
+
+    public void setSrcCity(String srcCity) {
+        this.srcCity = srcCity;
+    }
+
+    public void setDestCity(String destCity) {
+        this.destCity = destCity;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 
     @Override

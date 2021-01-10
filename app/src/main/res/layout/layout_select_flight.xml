@@ -15,7 +15,7 @@
         <RelativeLayout
             android:id="@+id/rl_src"
             android:layout_width="150dp"
-            android:layout_height="60dp"
+            android:layout_height="65dp"
             android:background="@drawable/card_boundry_black"
             android:gravity="center_vertical">
 
@@ -27,6 +27,7 @@
                 android:textSize="12sp" />
 
             <TextView
+                android:id="@+id/tv_src_city"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/tv_from"
@@ -41,14 +42,14 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:layout_centerVertical="true"
-            android:layout_toLeftOf="@+id/rl_to"
+            android:layout_toLeftOf="@id/rl_to"
             android:layout_toRightOf="@id/rl_src"
             android:src="@drawable/baseline_swap_horiz_black_18" />
 
         <RelativeLayout
             android:id="@+id/rl_to"
             android:layout_width="150dp"
-            android:layout_height="60dp"
+            android:layout_height="65dp"
             android:layout_alignParentEnd="true"
             android:background="@drawable/card_boundry_black"
             android:gravity="center_vertical">
@@ -61,6 +62,7 @@
                 android:textSize="12sp" />
 
             <TextView
+                android:id="@+id/tv_dest_city"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/tv_to"

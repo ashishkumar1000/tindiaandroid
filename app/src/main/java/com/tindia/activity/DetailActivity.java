@@ -92,8 +92,9 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
     }
 
     @Override
-    public void openAutoSuggestActivity() {
+    public void openAutoSuggestActivity(TransportFragment.SearchType type) {
         Intent i = new Intent(this, AutoSuggestActivity.class);
+        i.putExtra("TYPE", type.name());
         startActivityForResult(i, AUTO_SUGGEST_ACTIVITY);
     }
 
@@ -101,8 +102,19 @@ public class DetailActivity extends AppCompatActivity implements View.OnClickLis
     public void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == AUTO_SUGGEST_ACTIVITY) {
-            String message = data.getStringExtra("MESSAGE");
-            Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+            String cityName = data.getStringExtra("MESSAGE");
+            String type = data.getStringExtra("TYPE");
+            Toast.makeText(this, cityName +  type, Toast.LENGTH_SHORT).show();
+
+            if (TransportFragment.SearchType.DEST.name().equalsIgnoreCase(type)) {
+                pagerAdapter.setDestCity(cityName);
+            } else {
+                pagerAdapter.setSrcCity(cityName);
+            }
+            pagerAdapter.notifyDataSetChanged();
+           /* TransportFragment frag = (TransportFragment) pagerAdapter.getItem(2);
+            frag.setCityName(cityName, type);*/
         }
+
     }
 }

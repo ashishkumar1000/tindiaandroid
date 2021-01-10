@@ -27,4 +27,7 @@ public interface ApiInterface {
 
     @GET("getdestination")
     Call<DetailResponse> getDetailResponse(@Query("cityId") int cityId);
+
+    @GET("autosuggest")
+    Call<List<String>> getAutoSuggestCity(@Query("word") String word);
 }
